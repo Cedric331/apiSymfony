@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Départements par Région{% endblock %}
+
+{% block body %}
+<div class="container">
+<form action="" method="GET">
+   <div class="row mt-3">
+      <div class="col-md-10">
+         <div class="form-group">
+            <select class="form-select" name="code">
+               <option value="all"> -- Toutes les régions --</option>
+               {% for region in regions %}
+                  <option value="{{region.code}}">{{region.nom}}</option>
+               {% endfor %}
+            </select>
+         </div>
+      </div>
+      <div class="col-md-2">
+         <button type="submit" class="btn btn-primary">Rechercher</button>
+      </div>
+   </div>
+</form>
+<hr>
+<div class="row">
+   {% for departement in departements %}
+   <div class="col-md-5 my-2 mx-2">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"> {{ departement.code }} </h5>
+          <p class="card-text">{{ departement.nom }}</p>
+        </div>
+      </div>
+   </div>
+   {% endfor %}
+
+</div>
+</div>
+{% endblock %}
