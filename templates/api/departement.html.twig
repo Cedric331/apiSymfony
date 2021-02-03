@@ -3,37 +3,36 @@
 {% block title %}Liste des Départements par Région{% endblock %}
 
 {% block body %}
-<div class="container">
-<form action="" method="GET">
-   <div class="row mt-3">
-      <div class="col-md-10">
-         <div class="form-group">
-            <select class="form-select" name="code">
-               <option value="all"> -- Toutes les régions --</option>
-               {% for region in regions %}
-                  <option value="{{region.code}}">{{region.nom}}</option>
-               {% endfor %}
-            </select>
+<div class="container mt-5">
+   <form action="" method="GET">
+      <div class="row">
+         <div class="col-md-10">
+            <div class="form-group">
+               <select class="form-select" name="code">
+                  <option value="all"> -- Toutes les régions --</option>
+                  {% for region in regions %}
+                     <option value="{{region.code}}" {% if app.request.query.get('code') == region.code %} selected {% endif %}>{{region.nom}}</option>
+                  {% endfor %}
+               </select>
+            </div>
+         </div>
+         <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
          </div>
       </div>
-      <div class="col-md-2">
-         <button type="submit" class="btn btn-primary">Rechercher</button>
+   </form>
+   <hr>
+   <div class="row mx-auto">
+      {% for departement in departements %}
+      <div class="col-md-3 my-2 mx-2">
+         <div class="card bg-dark" style="width: 18rem;">
+           <div class="card-body">
+             <h5 class="card-title text-white"> {{ departement.code }} </h5>
+             <p class="card-text text-white">{{ departement.nom }}</p>
+           </div>
+         </div>
       </div>
+      {% endfor %}
    </div>
-</form>
-<hr>
-<div class="row">
-   {% for departement in departements %}
-   <div class="col-md-5 my-2 mx-2">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title"> {{ departement.code }} </h5>
-          <p class="card-text">{{ departement.nom }}</p>
-        </div>
-      </div>
-   </div>
-   {% endfor %}
-
-</div>
 </div>
 {% endblock %}
